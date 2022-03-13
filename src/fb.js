@@ -1,7 +1,9 @@
 // Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import firebase from "firebase/compat/app";
+import "firebase/compat/auth";
+import "firebase/compat/firestore";
+import "firebase/compat/storage";
+
 
 // Your web app's Firebase configuration
 const firebaseConfig = { // 다른 파일에 키를 저장했을 경우, REACT_APP 키워드를 사용해야만 사용 가능
@@ -15,4 +17,6 @@ const firebaseConfig = { // 다른 파일에 키를 저장했을 경우, REACT_A
 
 // Initialize Firebase
 // const app = initializeApp(firebaseConfig);
-export default initializeApp(firebaseConfig);
+firebase.initializeApp(firebaseConfig);
+
+export const authService = firebase.auth();

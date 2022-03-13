@@ -1,11 +1,18 @@
-import React from 'react';
-import { Route } from 'react-router-dom';
-import AppRouter from './Router';
+import React, { useState } from "react";
+import AppRouter from "components/Router";
+import { authService } from "fb";
+// import { Route } from "react-router-dom";
+
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(authService.currentUser);
+
   return (
-      <AppRouter />
+    <>
+      <AppRouter isLoggedIn={isLoggedIn}/>
+      <footer>&copy; {new Date().getFullYear()} Sean</footer>
+    </>
   );
 }
-
+ 
 export default App;
