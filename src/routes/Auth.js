@@ -1,4 +1,4 @@
-import { authService } from "fb";
+import { authService, firebaseInstance } from "fb";
 import React, { useState } from "react";
 
 // export default () => <span>Auth</span>
@@ -26,7 +26,7 @@ const Auth = () => {
         try{
             if(newAccount){
                 //create account
-               data =  await authService.createUserWithEmailAndPassword(email, password)
+               data = await authService.createUserWithEmailAndPassword(email, password)
                console.log(data);
             }
             else{
@@ -43,6 +43,19 @@ const Auth = () => {
     const toggleAccount = () => {
         setNewAccount(prev => !prev)
     }
+    const onSocialClick = async (event) => {
+        const {target: {name, value}} = event;
+        let provider;
+
+        if(name === "google"){
+            provider = new firebaseInstance.auth.GoogleAuthProvider();
+        }else if(name === "github"){
+            provider = new firebaseInstance.auth.GithubAuthProvider();
+        }
+        
+        const data = await authService.signInWithPopup(provider);
+        console.log(data);
+    }
 
     return ( // 위와 같이 사용 가능하지만, 이렇게 하면 자동 import 됨
         <div>   
@@ -57,8 +70,8 @@ const Auth = () => {
                 {newAccount ? "Sign in" : "Sign up"}
             </span>
             <div>
-                <button>Continue with Google</button>
-                <button>Continue with Github</button>
+                <button name="google" onClick={onSocialClick}>Continue with Google</button>
+                <button name="github" onClick={onSocialClick}>Continue with Github</button>
             </div>
         </div>
     );

@@ -19,4 +19,5 @@ const firebaseConfig = { // 다른 파일에 키를 저장했을 경우, REACT_A
 // const app = initializeApp(firebaseConfig); 
 firebase.initializeApp(firebaseConfig);
 
+export const firebaseInstance = firebase;
 export const authService = firebase.auth(); // 전체를 export 하는것보다 각 service를 export 하기
