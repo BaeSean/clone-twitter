@@ -12,6 +12,7 @@ const AppRouter = ({isLoggedIn}) => {
                     <>
                         <Route exact path="/">
                             <Home />
+                            {/* <input type="submit" value="Log out" onClick={()=>{authService.signOut(); setIsLoggedIn(false); setInit(false);}}/> */}
                         </Route>
                     </> 
                 ) : (
