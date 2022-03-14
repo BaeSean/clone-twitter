@@ -1,5 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 
 // export default () => <span>Home</span>
-const Home = () => <span>Home</span>;   // 위와 같이 사용 가능하지만, 이렇게 하면 자동 import 됨
+const Home = () => {
+    const [tweet, setTweet] = useState("");
+    
+    const onSubmit = (event) => {
+        event.preventDefault();
+    }
+    const onChange = (event) => {
+        const {target: {value}} = event;
+        setTweet(value);
+    }
+    
+    return(
+    <div>
+        <form>
+            <input vlaue={tweet} onChange={onChange} type="text" placeholder="What's on your mind?" maxLength={120} />
+            <input type="submit" value="Tweet" />
+        </form>
+    </div>
+    )
+}
+
+
 export default Home;
