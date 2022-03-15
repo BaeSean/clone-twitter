@@ -22,3 +22,4 @@ firebase.initializeApp(firebaseConfig);
 export const firebaseInstance = firebase;
 export const authService = firebase.auth(); // 전체를 export 하는것보다 각 service를 export 하기
 export const dbService = firebase.firestore();
+export const storageService = firebase.storage();

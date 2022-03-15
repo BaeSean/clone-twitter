@@ -1,6 +1,7 @@
-import { dbService } from "fb";
+import { dbService, storageService } from "fb";
 import React, { useEffect, useState } from "react";
 import Tweet from "components/Tweet"
+import { v4 as uuidv4 } from 'uuid';
 
 const Home = ({ userObj }) => {
     const [tweet, setTweet] = useState("");
@@ -32,13 +33,18 @@ const Home = ({ userObj }) => {
 
     const onSubmit = async (event) => {
         event.preventDefault();
-        await dbService.collection("tweets").add({
-            text: tweet,
-            createdAt: Date.now(),
-            creatorId: userObj.uid,
-            photoURL: userObj.photoURL,
-        });
-        setTweet("")
+        // await dbService.collection("tweets").add({
+        //     text: tweet,
+        //     createdAt: Date.now(),
+        //     creatorId: userObj.uid,
+        //     photoURL: userObj.photoURL,
+        // });
+        // setTweet("")
+
+        const fileRef = storageService.ref().child(`${userObj.uid}/${uuidv4()}`);  // generate random id (uuid)
+        const respone = await fileRef.putString(attachment, "data_url");
+        console.log(respone); 
+
     };
     const onChange = (event) => {
         const { target: { value }, } = event;
