@@ -39,12 +39,23 @@ const Home = ({ userObj }) => {
         //     creatorId: userObj.uid,
         //     photoURL: userObj.photoURL,
         // });
-        // setTweet("")
+        // setTweet("")  // only for tweet text
+        let attachmentURL = "";
+        if (attachment !==  "") {
+            const attachmentRef = storageService.ref().child(`${userObj.uid}/${uuidv4()}`);  // generate random id (uuid)
+            const respone = await attachmentRef.putString(attachment, "data_url");  // store img(putString) in Storage
+            attachmentURL = (await respone.ref.getDownloadURL());
+        }
+        const tweetObj = {
+            text: tweet,
+            createdAt: Date.now(),
+            creatorId: userObj.uid,
+            attachmentURL  // key는 변수명으로 되는듯
+        }
+        await dbService.collection("tweets").add(tweetObj);
 
-        const fileRef = storageService.ref().child(`${userObj.uid}/${uuidv4()}`);  // generate random id (uuid)
-        const respone = await fileRef.putString(attachment, "data_url");
-        console.log(respone); 
-
+        setTweet("");
+        setAttachment("");
     };
     const onChange = (event) => {
         const { target: { value }, } = event;
@@ -78,7 +89,7 @@ const Home = ({ userObj }) => {
                 {
                     attachment &&
                     <div>
-                        <img src={attachment} width="150px" height="150px" />
+                        <img src={attachment} width="150px" height="150px" alt="img" />
                         <button onClick={clearImg}>Clear</button>
                     </div>
                 }
