@@ -1,5 +1,6 @@
 import { dbService } from "fb";
 import React, { useEffect, useState } from "react";
+import Tweet from "components/Tweet"
 
 // export default () => <span>Home</span>
 const Home = ({userObj}) => {
@@ -58,9 +59,7 @@ const Home = ({userObj}) => {
         </form>
         <div>
             {tweets.map((tweet) => (
-                <div key={tweet.id}>
-                    <h4>{tweet.text}</h4>
-                </div>
+                <Tweet key={tweet.id} tweetObj={tweet} isOwner={userObj.uid===tweet.creatorId ? true : false}></Tweet>
             ))}
         </div>
     </div>
