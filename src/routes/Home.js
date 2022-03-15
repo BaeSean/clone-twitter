@@ -2,11 +2,10 @@ import { dbService } from "fb";
 import React, { useEffect, useState } from "react";
 import Tweet from "components/Tweet"
 
-// export default () => <span>Home</span>
 const Home = ({ userObj }) => {
-    // console.log(userObj);
     const [tweet, setTweet] = useState("");
     const [tweets, setTweets] = useState([]);
+    const [attachment, setAttachment] = useState();
 
     // const getTweets = async () => {
     //     const dbTweets = await dbService.collection("tweets").get();
@@ -46,6 +45,19 @@ const Home = ({ userObj }) => {
         setTweet(value);
     };
 
+    const onFileChange = (event) => {
+        const { target: { files }, } = event;
+        const file = files[0];
+
+        const reader = new FileReader();  // File read API
+        reader.onloadend = (finishedEvent) => {
+            const { currentTarget: { result } } = finishedEvent;
+            setAttachment(result);
+        }
+        reader.readAsDataURL(file);
+    }
+    const clearImg = () => setAttachment(null);
+
     return (
         <div>
             <form onSubmit={onSubmit}>
@@ -56,6 +68,14 @@ const Home = ({ userObj }) => {
                     placeholder="What's on your mind?"
                     maxLength={120} />
                 <input type="submit" value="Tweet" />
+                <input type="file" accept="image/*" onChange={onFileChange} />
+                {
+                    attachment &&
+                    <div>
+                        <img src={attachment} width="150px" height="150px" />
+                        <button onClick={clearImg}>Clear</button>
+                    </div>
+                }
             </form>
             <div>
                 {tweets.map((tweet) => (
