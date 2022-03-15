@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import { HashRouter as Router, Route, Switch } from "react-router-dom";
 import Auth from "routes/Auth";  // 자동 import 됨
 import Home from "routes/Home";
 import Profile from "routes/Profile";
 import Navigator from "components/Navigator";
 
-const AppRouter = ({isLoggedIn}) => {
+const AppRouter = ({isLoggedIn, userObj}) => {
     // const [isLoggedIn, setIsLoggedIn] = useState(false);  // don't use state on Ruuter
     return(
         <Router>
@@ -14,7 +14,7 @@ const AppRouter = ({isLoggedIn}) => {
                 {isLoggedIn ? (
                     <>
                         <Route exact path="/">
-                            <Home />
+                            <Home userObj={userObj}/>
                         </Route>
                         <Route exact path="/profile">
                             <Profile />
