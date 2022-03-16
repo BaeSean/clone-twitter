@@ -28,13 +28,13 @@ const Home = ({ userObj }) => {
             }));
             setTweets(tweetArray);
         })
-    }, [])
+    }, []);
 
 
     return (
-        <div>
+        <div className="container">
             <Factory userObj={userObj} />
-            <div>
+            <div style={{ marginTop: 30 }}>
                 {tweets.map((tweet) => (
                     <Tweet key={tweet.id} tweetObj={tweet} isOwner={userObj.uid === tweet.creatorId}></Tweet>
                 ))}

@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from 'components/App';
 import fb from "fb"
+import "./styles.css"
 // console.log(fb);
 
 ReactDOM.render(

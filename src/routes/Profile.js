@@ -2,7 +2,6 @@
 import { authService, dbService } from "fb";
 import { useHistory } from "react-router-dom";
 import React, { useEffect, useState } from "react";
-import Tweet from "components/Tweet"
 
 
 // export default () => <span>Profile</span>
@@ -13,7 +12,7 @@ export default ({ userObj, refreshUser }) => {
     const [newDisplayName, setNewDisplayName] = useState(userObj.displayName);
     const history = useHistory();
 
-    const onLogoutClick = () => {
+    const onLogOutClick = () => {
         authService.signOut();
         history.push("/");
     }
@@ -34,7 +33,7 @@ export default ({ userObj, refreshUser }) => {
 
     const onSubmit = async (event) => {
         event.preventDefault();
-        if(userObj.displayName !== newDisplayName){
+        if (userObj.displayName !== newDisplayName) {
             await userObj.updateProfile({
                 displayName: newDisplayName,
                 photoURL: userObj.photoURL,
@@ -48,27 +47,24 @@ export default ({ userObj, refreshUser }) => {
     }, [])
 
     return (
-        <>
-            <form onSubmit={onSubmit}>
-                <input onChange={onChange} value={newDisplayName} type="text" placeholder="Display Name" />
-                <input type="submit" vlaue="Update Profile" />
+        <div className="container">
+            <form onSubmit={onSubmit} className="profileForm">
+                <input onChange={onChange} value={newDisplayName} type="text" autoFocus placeholder="Display Name" className="formInput"
+                />
+                <input
+                    type="submit"
+                    value="Update Profile"
+                    className="formBtn"
+                    style={{
+                        marginTop: 10,
+                    }}
+                />
             </form>
             <div>
             </div>
-            <button onClick={onLogoutClick}>Log out  </button>
-        </>
+            <span className="formBtn cancelBtn logOut" onClick={onLogOutClick}>
+                Log Out
+            </span>
+        </div>
     );
 };
-
-//import { collection, getDocs, query, where } from "@firebase/firestore";
-//
-// const getMyTweets = async () => {
-//     const q = query(
-//         collection(dbService, "tweets"),
-//         where("creatorId", "==", `${userObj.uid}`)
-//     )
-//     const querySnapshot = await getDocs(q);
-//     querySnapshot.docs.map((doc) => {
-//         console.log(doc);
-//     });
-// }

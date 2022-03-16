@@ -5,25 +5,35 @@ import Home from "routes/Home";
 import Profile from "routes/Profile";
 import Navigator from "components/Navigator";
 
-const AppRouter = ({isLoggedIn, userObj, refreshUser}) => {
+const AppRouter = ({ isLoggedIn, userObj, refreshUser }) => {
     // const [isLoggedIn, setIsLoggedIn] = useState(false);  // don't use state on Ruuter
-    return(
+    return (
         <Router>
-            {isLoggedIn && <Navigator userObj={userObj}/>}
+            {isLoggedIn && <Navigator userObj={userObj} />}
             <Switch>
                 {isLoggedIn ? (
-                    <>
+
+                    <div
+                        style={{
+                            maxWidth: 890,
+                            width: "100%",
+                            margin: "0 auto",
+                            marginTop: 80,
+                            display: "flex",
+                            justifyContent: "center",
+                        }}
+                    >
                         <Route exact path="/">
-                            <Home userObj={userObj}/>
+                            <Home userObj={userObj} />
                         </Route>
                         <Route exact path="/profile">
-                            <Profile userObj={userObj} refreshUser={refreshUser}/>
+                            <Profile userObj={userObj} refreshUser={refreshUser} />
                         </Route>
-                    </> 
+                    </div>
                 ) : (
                     <>
                         <Route exact path="/">
-                            <Auth /> 
+                            <Auth />
                         </Route>
                     </>
                 )}
