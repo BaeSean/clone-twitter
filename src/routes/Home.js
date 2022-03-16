@@ -6,7 +6,7 @@ import { v4 as uuidv4 } from 'uuid';
 const Home = ({ userObj }) => {
     const [tweet, setTweet] = useState("");
     const [tweets, setTweets] = useState([]);
-    const [attachment, setAttachment] = useState();
+    const [attachment, setAttachment] = useState("");
 
     // const getTweets = async () => {
     //     const dbTweets = await dbService.collection("tweets").get();
@@ -40,7 +40,7 @@ const Home = ({ userObj }) => {
         //     photoURL: userObj.photoURL,
         // });
         // setTweet("")  // only for tweet text
-        let attachmentURL = "";
+        let attachmentURL = "";        
         if (attachment !==  "") {
             const attachmentRef = storageService.ref().child(`${userObj.uid}/${uuidv4()}`);  // generate random id (uuid)
             const respone = await attachmentRef.putString(attachment, "data_url");  // store img(putString) in Storage
@@ -73,7 +73,7 @@ const Home = ({ userObj }) => {
         }
         reader.readAsDataURL(file);
     }
-    const clearImg = () => setAttachment(null);
+    const clearImg = () => setAttachment("");
 
     return (
         <div>

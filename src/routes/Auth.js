@@ -54,7 +54,7 @@ const Auth = () => {
         }
         
         const data = await authService.signInWithPopup(provider);
-        console.log(data);
+        // console.log(data);
     }
 
     return ( // 위와 같이 사용 가능하지만, 이렇게 하면 자동 import 됨

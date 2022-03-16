@@ -8,8 +8,10 @@ const Tweet = ({ tweetObj, isOwner }) => {
     const onDeleteClick = async () => {
         const ok = window.confirm("Are you sure you want to delete this tweet?");
         if (ok) {
-            await dbService.doc(`tweets/${tweetObj.id}`).delete();
-            await storageService.refFromURL(tweetObj.attachmentURL).delete();
+            if(tweetObj.text !== "")
+                await dbService.doc(`tweets/${tweetObj.id}`).delete();
+            if(tweetObj.attachmentURL !== "")
+                await storageService.refFromURL(tweetObj.attachmentURL).delete();
         }  // 파일시스템의 구조와 비슷하게 사용(firestore)
     }
     const toggleEdit = () => {

@@ -1,23 +1,48 @@
 /* eslint-disable import/no-anonymous-default-export */
-import { authService } from "fb";
+import { authService, dbService } from "fb";
 import { useHistory } from "react-router-dom";
-import React from "react";
+import React, { useEffect } from "react";
 
 // export default () => <span>Profile</span>
 // const Profile = () => <span>Profile</span>;   // 위와 같이 사용 가능하지만, 이렇게 하면 자동 import 됨
 // export default Profile;
 
-export default () => {
+export default (userObj) => {
     const history = useHistory();
-    
+
     const onLogoutClick = () => {
         authService.signOut();
         history.push("/");
     }
-    
-    return(
+
+    const getMyTweets = async () => {
+        // const myTweets = await dbService.collection("tweets").where("creatorId", "==", authService.currentUser.uid).get();
+        // console.log(myTweets.docs.map((doc) => doc.data()));
+        
+        const myTweets = await dbService.collection("tweets").where("creatorId", "==", userObj.userObj.uid).get();
+        console.log(myTweets.docs.map((doc) => doc.data()));
+    }
+
+    useEffect(() => {
+        getMyTweets();
+    }, [])
+
+    return (
         <>
             <button onClick={onLogoutClick}>Log out  </button>
         </>
     );
 };
+
+//import { collection, getDocs, query, where } from "@firebase/firestore";
+//
+// const getMyTweets = async () => {
+//     const q = query(
+//         collection(dbService, "tweets"),
+//         where("creatorId", "==", `${userObj.uid}`)
+//     )
+//     const querySnapshot = await getDocs(q);
+//     querySnapshot.docs.map((doc) => {
+//         console.log(doc);
+//     });
+// }
