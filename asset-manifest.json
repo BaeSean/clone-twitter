@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/BaeSean/clone-twitter.git/static/css/main.d077b48a.css",
+    "main.js": "/BaeSean/clone-twitter.git/static/js/main.aa6eae30.js",
+    "index.html": "/BaeSean/clone-twitter.git/index.html",
+    "main.d077b48a.css.map": "/BaeSean/clone-twitter.git/static/css/main.d077b48a.css.map",
+    "main.aa6eae30.js.map": "/BaeSean/clone-twitter.git/static/js/main.aa6eae30.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.d077b48a.css",
+    "static/js/main.aa6eae30.js"
+  ]
+}
