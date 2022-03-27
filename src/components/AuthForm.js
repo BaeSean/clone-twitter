@@ -1,7 +1,6 @@
 import { authService } from "fb";
 import React, { useState } from "react";
 
-const inputStyles = {};
 
 const AuthForm = () => {
     const [email, setEmail] = useState("");
